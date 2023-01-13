@@ -16,7 +16,7 @@
     "url": "https://github.com/ryan-carbon/Climb/issues"
   },
   "homepage": "https://github.com/ryan-carbon/Climb#readme",
-  "dependencies": {
+  "devDependencies": {
     "mysql2": "^3.0.1"
   }
 }
