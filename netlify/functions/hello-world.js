@@ -2,7 +2,7 @@ import mysql from 'mysql2/promise'
 
 export const handler = async () => {
 	const connection = await mysql.createConnection(process.env.DATABASE_URL);
-	const [rows, fields] = await connection.query('SELECT * FROM Leaderboard;');
+	const [rows, fields] = await connection.query('SELECT 1');
 	connection.end();
 	
 	return {
