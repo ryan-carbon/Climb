@@ -1,8 +1,14 @@
 export const handler = async () => {
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'Hello world!'
-    })
-  }
+	const mysql = require('mysql2');
+	const connection = await mysql.createConnection(process.env.DATABASE_URL);
+	const [rows, fields] = await connection.query('SELECT * FROM Leaderboard');
+	connection.end();
+	
+	return {
+		statusCode: 200,
+		body: JSON.stringify({
+			rows: rows,
+			fields: fields
+		})
+	}
 }
