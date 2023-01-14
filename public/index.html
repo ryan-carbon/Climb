@@ -2,10 +2,9 @@
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Climb</title>
+		<title>Climbs</title>
 	</head>
 	<body>
-		<h1>Leaderboard</h1>
 		<div id="content">
 		</div>
 	</body>
@@ -14,21 +13,11 @@
 		setText = (el, val) => el.innerText = val;
 		addEl = (par, el, func) => (el = document.createElement(el), func(el), par.appendChild(el));
 		
-		fetch("/.netlify/functions/top3")
+		fetch("/.netlify/functions/circuits")
 		.then(res => res.json())
 		.catch(() => {})
-		.then(data => $('#content').replaceWith(Object.keys(data).reduce((content, colour) => {
+		.then(data => $('#content').replaceWith(data.reduce((content, colour) => {
 			addEl(content, 'h2', el => setText(el, colour));
-			addEl(content, 'table', table => {
-				addEl(table, 'thead', thead => { 
-					addEl(thead, 'td', td => setText(td, 'Username'));
-					addEl(thead, 'td', td => setText(td, 'Score'));
-				});
-				data[colour].forEach(row => addEl(table, 'tr', tr => {
-					addEl(tr, 'td', td => setText(td, row.Username));
-					addEl(tr, 'td', td => setText(td, row.Score));
-				}));					
-			});
 			return content;
 		}, $('#content').cloneNode())))
 	</script>
