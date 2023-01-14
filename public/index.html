@@ -17,20 +17,33 @@
 		fetch("/.netlify/functions/top3")
 		.then(res => res.json())
 		.catch(() => {})
-		.then(data => $('#content').replaceWith(Object.keys(data).reduce((content, colour) => {
-			addEl(content, 'h2', h2 => setText(h2, colour));
+		.then(data => $('#content').replaceWith(Object.keys(data).reduce((content, circuit) => {
+			addEl(content, 'h2', h2 => setText(h2, circuit));
 			addEl(content, 'table', table => {
 				addEl(table, 'thead', thead => { 
 					addEl(thead, 'td', td => setText(td, 'Username'));
 					addEl(thead, 'td', td => setText(td, 'Score'));
 				});
-				data[colour].forEach(row => addEl(table, 'tr', tr => {
+				data[circuit].forEach(row => addEl(table, 'tr', tr => {
 					addEl(tr, 'td', td => setText(td, row.Username));
 					addEl(tr, 'td', td => setText(td, row.Score));
-				}));					
+				}));
+				table.id = circuit
 			});
-			addEl(content, 'a', a => setText(a, "load more"));
+			addEl(content, 'a', a => {
+                setText(a, "load more");
+                    a.onclick = () => addRows(circuit);
+            });
 			return content;
-		}, $('#content').cloneNode())))
+		}, $('#content').cloneNode())));
+		
+		addRows = (circuit) => {
+			rows = document.createDocumentFragment();
+			addEl(rows, 'tr', tr => {
+				addEl(tr, 'td', td => setText(td, "Fred"));
+				addEl(tr, 'td', td => setText(td, "3"));
+			});
+			$('#' + circuit).appendChild(rows);
+		};
 	</script>
 </html>
