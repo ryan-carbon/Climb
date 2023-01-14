@@ -16,8 +16,8 @@
 		fetch("/.netlify/functions/circuits")
 		.then(res => res.json())
 		.catch(() => {})
-		.then(data => $('#content').replaceWith(data.reduce((content, colour) => {
-			addEl(content, 'h2', el => setText(el, colour));
+		.then(data => $('#content').replaceWith(data.reduce((content, circuit) => {
+			addEl(content, 'h2', el => setText(el, circuit));
 			return content;
 		}, $('#content').cloneNode())))
 	</script>
