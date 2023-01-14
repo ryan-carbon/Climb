@@ -3,6 +3,27 @@
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Climb</title>
+		<style>
+			body {
+				font-family: -apple-system,BlinkMacSystemFont,"Segoe UI Adjusted","Segoe UI","Liberation Sans",sans-serif;
+				margin: 0 30px;
+			}
+			
+			a {
+				color: #7EC8E3;
+				cursor: pointer;
+			}
+			
+			table {
+				width: 100%;
+				border: 1px solid #ccc;
+				border-radius: 5px;
+			}
+			
+			td {
+				padding: 5px;
+			}
+		</style>
 	</head>
 	<body>
 		<h1>Leaderboard</h1>
@@ -23,12 +44,14 @@
 				addEl(table, 'thead', thead => { 
 					addEl(thead, 'td', td => setText(td, 'Username'));
 					addEl(thead, 'td', td => setText(td, 'Score'));
+					addEl(thead, 'td', td => setText(td, 'Position'));
 				});
-				data[circuit].forEach(row => addEl(table, 'tr', tr => {
+				data[circuit].forEach((row, i) => addEl(table, 'tr', tr => {
 					addEl(tr, 'td', td => setText(td, row.Username));
 					addEl(tr, 'td', td => setText(td, row.Score));
+					addEl(tr, 'td', td => setText(td, i + 1));
 				}));
-				table.id = circuit
+				table.id = circuit;
 			});
 			addEl(content, 'a', a => {
                 setText(a, "load more");
@@ -38,12 +61,14 @@
 		}, $('#content').cloneNode())));
 		
 		addRows = (circuit) => {
+			table = $('#' + circuit);
 			rows = document.createDocumentFragment();
 			addEl(rows, 'tr', tr => {
 				addEl(tr, 'td', td => setText(td, "Fred"));
 				addEl(tr, 'td', td => setText(td, "3"));
+				addEl(tr, 'td', td => setText(td, table.childElementCount));
 			});
-			$('#' + circuit).appendChild(rows);
+			table.appendChild(rows);
 		};
 	</script>
 </html>
