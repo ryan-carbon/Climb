@@ -7,7 +7,7 @@ export const handler = async () => {
 	connection.end();
 
 	let returnValue = {};
-	rows.forEach(row => returnValue[row.Colour] = (returnValue[row.Colour] || []).concat({ Username: row.Username, Score: row.Score }));
+	rows.forEach(row => returnValue[row.Circuit] = (returnValue[row.Circuit] || []).concat({ Username: row.Username, Score: row.Score }));
 
 	return {
 		statusCode: 200,
