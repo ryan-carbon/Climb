@@ -6,7 +6,7 @@ export const handler = async () => {
 	const [rows] = await connection.query(query);
 	connection.end();
 	
-	const returnValue = {};
+	let returnValue = {};
 	
 	rows.each(row => returnValue[row.Colour] = (returnValue[row.Colour] || []).concat({ Username: row.Username, Score: row.Score });
 	
