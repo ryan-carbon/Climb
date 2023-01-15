@@ -13,7 +13,7 @@ exports.handler = async (event, context) => {
 	};
 	
 	return {
-		statusCode: (data.users.length > 0 ? 400 : 204),
+		statusCode: (data.users.length > 0 ? 400 : 200),
 		body: JSON.stringify(returnValue)
 	};
 };
