@@ -8,9 +8,15 @@ exports.handler = async (event, context) => {
 		headers: { Authorization: 'Bearer ' + identity.token },
 	}).then(res => res.json())
 
-	const statusCode = data.users.length > 0 ? 403 : 200;
-	
-	return {
-		statusCode: statusCode
-	};
+	if (data.users.length > 0) {
+		return {
+			statusCode: 403,
+			message: JSON.stringify({ msg: "Username already taken" });
+		};
+	}
+	else {
+		return {
+			statusCode: 200
+		};
+	}
 };
