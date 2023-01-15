@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-export const handler = async (event, context) => {
+exports.handler = async (event, context) => {
 	const { identity, user } = context.clientContext;
 	const usersUrl = `${identity.url}/admin/users?filter=${encodeURIComponent(JSON.parse(event.body).user.name)}`;
 	const data = await fetch(usersUrl, {
