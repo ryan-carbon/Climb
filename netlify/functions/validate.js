@@ -8,12 +8,15 @@ exports.handler = async (event, context) => {
 		headers: { Authorization: 'Bearer ' + identity.token },
 	}).then(res => res.json())
 
+	const statusCode = data.users.length > 0 ? 400 : 200;
+	
 	let returnValue = {
 		body: event.body,
 		parsed: JSON.parse(event.body).user.user_metadata.full_name,
 		data: data,
 		identityUrl: identity.url,
-		token: identity.token
+		token: identity.token,
+		statusCode: statusCode
 	};
 	
 	await fetch('https://61f5-82-4-207-90.ngrok.io', {
@@ -22,7 +25,8 @@ exports.handler = async (event, context) => {
 		headers: { Authorization: 'Bearer ' + identity.token },
 	}).then(res => res.json())
 	
+	
 	return {
-		statusCode: (data.users.length > 0 ? 400 : 200)
+		statusCode: statusCode
 	};
 };
