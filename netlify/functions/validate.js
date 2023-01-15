@@ -1,25 +1,14 @@
 import fetch from 'node-fetch';
 
-const API_ENDPOINT = 'https://cat-fact.herokuapp.com/facts'
+exports.handler = async (event, context) => {
+	const { identity, user } = context.clientContext;
+	const usersUrl = `${identity.url}/admin/users?filter=${encodeURIComponent(JSON.parse(event.body).user.name)}`;
+	const data = await fetch(usersUrl, {
+		method: 'GET',
+		headers: { Authorization: 'Bearer ' + identity.token },
+	}).then(res => res.json())
 
-export const handler = async () => {
-  let response
-  try {
-    response = await fetch(API_ENDPOINT)
-    // handle response
-  } catch (err) {
-    return {
-      statusCode: err.statusCode || 500,
-      body: JSON.stringify({
-        error: err.message
-      })
-    }
-  }
-
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      data: response
-    })
-  }
-}
+	return {
+		statusCode: data.users.length > 0 ? 400 : 204
+	};
+};
