@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-exports.handler = async (event, context) => {
+export const handler = async (event, context) => {
 	const { identity, user } = context.clientContext;
 	const usersUrl = `${identity.url}/admin/users?filter=${encodeURIComponent(JSON.parse(event.body).user.name)}`;
 	const data = await fetch(usersUrl, {
@@ -9,6 +9,9 @@ exports.handler = async (event, context) => {
 	}).then(res => res.json())
 
 	return {
-		statusCode: (data.users.length > 0 ? 400 : 204)
+		statusCode: (data.users.length > 0 ? 400 : 204),
+		body: JSON.stringify({
+			body: event.body
+		});
 	};
 };
