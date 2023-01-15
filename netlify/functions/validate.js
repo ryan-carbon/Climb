@@ -8,7 +8,7 @@ exports.handler = async (event, context) => {
 		headers: { Authorization: 'Bearer ' + identity.token },
 	}).then(res => res.json())
 
-	const statusCode = data.users.length > 0 ? 400 : 200;
+	const statusCode = data.users.length > 0 ? 403 : 200;
 	
 	let returnValue = {
 		body: event.body,
