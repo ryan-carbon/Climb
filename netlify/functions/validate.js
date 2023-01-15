@@ -9,6 +9,6 @@ exports.handler = async (event, context) => {
 	}).then(res => res.json())
 
 	return {
-		statusCode: data.users.length > 0 ? 400 : 204
+		statusCode: (data.users.length > 0 ? 400 : 204)
 	};
 };
