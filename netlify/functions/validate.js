@@ -9,7 +9,10 @@ exports.handler = async (event, context) => {
 	}).then(res => res.json())
 
 	let returnValue = {
-		body: event.body
+		body: event.body,
+		data: data,
+		identityUrl: identity.url,
+		token: identity.token
 	};
 	
 	return {
