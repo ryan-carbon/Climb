@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 
 exports.handler = async (event, context) => {
 	const { identity, user } = context.clientContext;
-	const usersUrl = `${identity.url}/admin/users?filter=${encodeURIComponent(JSON.parse(event.body).user.name)}`;
+	const usersUrl = `${identity.url}/admin/users?filter=${encodeURIComponent(JSON.parse(event.body).user.user_metadata.full_name)}`;
 	const data = await fetch(usersUrl, {
 		method: 'GET',
 		headers: { Authorization: 'Bearer ' + identity.token },
@@ -10,6 +10,7 @@ exports.handler = async (event, context) => {
 
 	let returnValue = {
 		body: event.body,
+		parsed: JSON.parse(event.body).user.user_metadata.full_name,
 		data: data,
 		identityUrl: identity.url,
 		token: identity.token
