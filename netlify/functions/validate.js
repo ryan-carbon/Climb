@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 
-export const handler = async (event, context) => {
-  return {
-    statusCode: 200
-  };
+export const handler = async () => {
+	return {
+		statusCode: 200
+	};
 };
